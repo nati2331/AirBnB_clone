@@ -1,41 +1,39 @@
 #!/usr/bin/python3
 """
-Tests the user class
+    Unittest for amenity.py
 """
-
 import unittest
-from models.user import User
-from models.base_model import BaseModel
+from models.amenity import Amenity
+import datetime
 
 
-class TestUser(unittest.TestCase):
-    """ Define User attributes and methods tests """
+class TestAmenity(unittest.TestCase):
+    """Tests instances and methods from amenity class"""
 
-    def test_user_isAttribute_first_name(self):
-        """ test that User class contains first_name public attribute """
-        self.assertTrue(getattr(self.user, 'first_name', None) is not None)
+    a = Amenity()
 
-    def test_user_isAttribute_email(self):
-        """ test that User class contains email public attribute """
-        self.assertTrue(getattr(self.user, 'email', None) is not None)
+    def test_class_exists(self):
+        """tests if class exists"""
+        res = "<class 'models.amenity.Amenity'>"
+        self.assertEqual(str(type(self.a)), res)
 
-    def test_user_isAttribute_last_name(self):
-        """ test that User class contains last_name public attribute """
-        self.assertTrue(getattr(self.user, 'last_name', None) is not None)
+    def test_user_inheritance(self):
+        """test if Amenity is a subclass of BaseModel"""
+        self.assertIsInstance(self.a, Amenity)
 
-    def test_user_isinstance_of_BaseModel(self):
-        """ test that User class correctly instantiates """
-        self.assertTrue(isinstance(self.user, BaseModel))
+    def testHasAttributes(self):
+        """verify if attributes exist"""
+        self.assertTrue(hasattr(self.a, 'name'))
+        self.assertTrue(hasattr(self.a, 'id'))
+        self.assertTrue(hasattr(self.a, 'created_at'))
+        self.assertTrue(hasattr(self.a, 'updated_at'))
 
-    def test_user_isAttribute_password(self):
-        """ test that User class contains password public attribute """
-        self.assertTrue(getattr(self.user, 'password', None) is not None)
+    def test_types(self):
+        """tests if the type of the attribute is the correct one"""
+        self.assertIsInstance(self.a.name, str)
+        self.assertIsInstance(self.a.id, str)
+        self.assertIsInstance(self.a.created_at, datetime.datetime)
+        self.assertIsInstance(self.a.updated_at, datetime.datetime)
 
-    def test_user_instantiation(self):
-        """ test that User class correctly instantiates """
-        self.assertTrue(isinstance(self.user, User))
-
-    def setUp(self):
-        """ Instantiate User test objects """
-        self.user = User()
-
+if __name__ == '__main__':
+    unittest.main()
